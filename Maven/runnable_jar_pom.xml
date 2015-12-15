@@ -26,7 +26,7 @@
 							<manifest>
 								<addClasspath>true</addClasspath>
 								<classpathPrefix>dependency/</classpathPrefix>
-								<mainClass>com.philips.blue.cli.Command</mainClass>
+								<mainClass>com.wonderfan.cli.Command</mainClass>
 							</manifest>
 						</archive>
 					</configuration>
