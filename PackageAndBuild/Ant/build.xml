@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="deploy_2_websphere_liberty" name="CDS_WAR">
+    <property environment="env"/>
+	
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.6"/>
+    <property name="source" value="1.6"/>
+	
+	
+	<property name="LIB_CORE" value="../cds_library/CDS_CORE"/>
+	<property name="LIB_DB2" value="../cds_library/DB2"/>
+	<property name="LIB_SERVICE" value="../cds_library/UI_Service/"/>
+	<property name="LIB_WEB" value="../cds_library/UI_Web/"/>
+	<property name="LIB_JMS" value="../cds_library/CDS_JMS/"/>
+	<property name="LIB_ADAPTER" value="../cds_library/Adapter/"/>
+	
+	<property name="project_cds_common.dir" value="../CDS_common"/>
+	<property name="project_cds_db_core.dir" value="../CDS_DB_CORE"/>
+	<property name="project_cds_web.dir" value="../cds_web"/>
+	<property name="project_cds_service.dir" value="../cds_service"/>
+	
+	<property name="build.dir" value="build"/>
+	<property name="dist.dir" value="dist"/>
+	
+	<property name="build_cds_common.dir" value="${build.dir}/cds_common"/>
+	<property name="build_cds_db_core.dir" value="${build.dir}/cds_db_core"/>
+	<property name="build_cds_web.dir" value="${build.dir}/cds_web"/>
+	<property name="build_cds_service.dir" value="${build.dir}/cds_service"/>
+	
+	<path id="project_cds_common.classpath">
+    	<fileset dir="${build_cds_common.dir}/lib/" includes="**/*.jar"/>
+        <pathelement location="${build_cds_common.dir}/bin/"/>
+    </path>
+	
+	<path id="project_cds_db_core.classpath">
+    	<fileset dir="${build_cds_db_core.dir}/lib/" includes="**/*.jar"/>
+        <pathelement location="${build_cds_common.dir}/bin/"/>
+		<pathelement location="${build_cds_db_core.dir}/bin/"/>
+    </path>
+
+	<path id="project_cds_web.classpath">
+    	<fileset dir="${build_cds_web.dir}/WEB-INF/lib/" includes="**/*.jar"/>
+    	<pathelement location="${build_cds_common.dir}/bin/"/>
+        <pathelement location="${build_cds_web.dir}/WEB-INF/classes/"/>
+    </path>
+	
+	<path id="project_cds_service.classpath">
+		<fileset dir="${build_cds_service.dir}/WEB-INF/lib/" includes="**/*.jar"/>
+		<pathelement location="${build_cds_common.dir}/bin/"/>
+		<pathelement location="${build_cds_db_core.dir}/bin/"/>
+		<pathelement location="${build_cds_service.dir}/WEB-INF/classes/"/>
+    </path>
+	
+	<target name="clean" description="clean">
+    	<delete dir="${build.dir}"/>
+    	<delete dir="${dist.dir}"/>
+	</target>
+	
+    <target name="init" depends="clean">
+    	<mkdir dir="${dist.dir}"/>
+    	<mkdir dir="${build.dir}"/>
+    	
+    	<mkdir dir="${build_cds_common.dir}"/>
+    	<mkdir dir="${build_cds_common.dir}/lib"/>
+    	<mkdir dir="${build_cds_common.dir}/bin"/>
+	
+    	<mkdir dir="${build_cds_db_core.dir}"/>
+    	<mkdir dir="${build_cds_db_core.dir}/lib"/>
+    	<mkdir dir="${build_cds_db_core.dir}/bin"/>
+    	
+        <mkdir dir="${build_cds_web.dir}"/>
+    	<mkdir dir="${build_cds_web.dir}/WEB-INF"/>
+    	<mkdir dir="${build_cds_web.dir}/WEB-INF/lib"/>
+    	<mkdir dir="${build_cds_web.dir}/WEB-INF/classes"/>
+    	
+    	<mkdir dir="${build_cds_service.dir}"/>
+    	<mkdir dir="${build_cds_service.dir}/WEB-INF"/>
+    	<mkdir dir="${build_cds_service.dir}/WEB-INF/lib"/>
+    	<mkdir dir="${build_cds_service.dir}/WEB-INF/classes"/>
+    </target>
+	
+	<target name="compile_cds_common" depends="init">
+		<copy todir="${build_cds_common.dir}/lib">
+            <fileset dir="${LIB_CORE}" includes="*.jar"/>
+			<fileset dir="${LIB_SERVICE}" includes="*.jar"/>    <!-- Jackson Jars  -->
+			<fileset dir="${LIB_WEB}">
+				<include name="javax.servlet-5.1.11.jar"/>
+			</fileset>
+        </copy>
+        <javac encoding="utf-8" debug="true" debuglevel="${debuglevel}" destdir="${build_cds_common.dir}/bin" source="${source}" target="${target}" includeantruntime="on">
+            <src path="${project_cds_common.dir}/src"/>
+            <classpath refid="project_cds_common.classpath"/>
+        </javac>
+		<copy todir="${build_cds_common.dir}/bin">
+            <fileset dir="${project_cds_common.dir}/I18NResources" includes="**/*.*"/>
+			<fileset dir="${project_cds_common.dir}/configResources">
+				<exclude name="**/setting.properties"/>
+			</fileset>
+			<fileset dir="${project_cds_common.dir}/templates" includes="**/*.*"/>
+        </copy>
+    </target>
+	
+	<target name="compile_cds_db_core" depends="init,compile_cds_common">
+		<copy todir="${build_cds_db_core.dir}/lib">
+            <fileset dir="${LIB_CORE}" includes="*.jar"/>
+			<fileset dir="${LIB_SERVICE}">
+				<include name="log4j-1.2.16.jar"/>
+			</fileset>
+        </copy>
+        <javac encoding="utf-8" debug="true" debuglevel="${debuglevel}" destdir="${build_cds_db_core.dir}/bin" source="${source}" target="${target}">
+            <src path="${project_cds_db_core.dir}/src"/>
+            <classpath refid="project_cds_db_core.classpath"/>
+        </javac>
+		<copy todir="${build_cds_db_core.dir}/bin">
+            <fileset dir="${project_cds_db_core.dir}/configResource"/>
+        </copy>
+    </target>
+
+	<target name="compile_cds_web" depends="init,compile_cds_common">
+		<copy todir="${build_cds_web.dir}/WEB-INF/lib">
+            <fileset dir="${LIB_WEB}" includes="*.jar"/>
+        </copy>
+        <javac encoding="utf-8" debug="true" debuglevel="${debuglevel}" destdir="${build_cds_web.dir}/WEB-INF/classes" source="${source}" target="${target}">
+            <src path="${project_cds_web.dir}/src"/>
+            <classpath refid="project_cds_web.classpath"/>
+        </javac>
+		<copy todir="${build_cds_web.dir}">
+            <fileset dir="${project_cds_web.dir}/WebContent">
+            	<exclude name="WEB-INF/"/>
+            </fileset>
+        </copy>
+		<copy todir="${build_cds_web.dir}/WEB-INF">
+            <fileset dir="${project_cds_web.dir}/WebContent/WEB-INF">
+            	<include name="*.xml"/>
+            </fileset>
+        </copy>
+		<copy todir="${build_cds_web.dir}/WEB-INF/classes">
+			<fileset dir="${project_cds_web.dir}/configResources" includes="**/*.*"/>
+        </copy>
+		<copy file="${project_cds_common.dir}/configResources/setting.properties" tofile="${build_cds_web.dir}/WEB-INF/classes/setting.properties"/>
+    </target>
+	
+	<target name="compile_cds_service" depends="init,compile_cds_db_core">
+		<copy todir="${build_cds_service.dir}/WEB-INF/lib">
+            <fileset dir="${LIB_SERVICE}" includes="*.jar"/>
+			<fileset dir="${LIB_CORE}" includes="*.jar"/>
+            <fileset dir="${LIB_DB2}" includes="*.jar"/>
+			<fileset dir="${LIB_JMS}" includes="*.jar"/>
+        </copy>
+        <javac encoding="utf-8" debug="true" debuglevel="${debuglevel}" destdir="${build_cds_service.dir}/WEB-INF/classes" source="${source}" target="${target}">
+            <src path="${project_cds_service.dir}/src"/>
+            <classpath refid="project_cds_service.classpath"/>
+        </javac>
+		<copy todir="${build_cds_service.dir}">
+            <fileset dir="${project_cds_service.dir}/WebContent">
+            	<exclude name="WEB-INF/"/>
+            </fileset>
+        </copy>
+		<copy todir="${build_cds_service.dir}/WEB-INF">
+            <fileset dir="${project_cds_service.dir}/WebContent/WEB-INF">
+            	<include name="*.xml"/>
+            </fileset>
+        </copy>
+		<copy todir="${build_cds_service.dir}/WEB-INF/classes">
+			<fileset dir="${project_cds_service.dir}/configResources" includes="**/*.*"/>
+        </copy>
+		<copy file="${project_cds_common.dir}/configResources/setting.properties" tofile="${build_cds_service.dir}/WEB-INF/classes/setting.properties"/>
+    </target>
+	
+	<target name="buildAll" depends="war_cds_web,war_cds_service" />
+	
+	<target name="jar_cds_common">
+		<jar destfile="${build_cds_web.dir}/WEB-INF/lib/cds_common.jar" 
+			baseDir="${build_cds_common.dir}/bin/"
+			includes="**/*.*"/>
+		<jar destfile="${build_cds_service.dir}/WEB-INF/lib/cds_common.jar"
+			baseDir="${build_cds_common.dir}/bin/" 
+			includes="**/*.*"/>
+	</target>
+	
+	<target name="jar_cds_db_core">
+		<jar destfile="${build_cds_web.dir}/WEB-INF/lib/cds_db_core.jar" 
+			baseDir="${build_cds_db_core.dir}/bin/"
+			includes="**/*.class, **/*.xml, **/*.properties"/>
+		<jar destfile="${build_cds_service.dir}/WEB-INF/lib/cds_db_core.jar"
+			baseDir="${build_cds_db_core.dir}/bin/"
+			includes="**/*.class, **/*.xml, **/*.properties"/>
+	</target>
+
+	<target name="war_cds_web" depends="compile_cds_web,jar_cds_common" description="Build the web application archive">  
+		<war warfile="${dist.dir}/cds_web.war" basedir="${build_cds_web.dir}" webxml="${build_cds_web.dir}/WEB-INF/web.xml"/>
+	</target> 
+	
+	<target name="war_cds_service" depends="compile_cds_service,jar_cds_common,jar_cds_db_core" description="Build the web application archive">  
+		<war warfile="${dist.dir}/cds_service.war" basedir="${build_cds_service.dir}" webxml="${build_cds_service.dir}/WEB-INF/web.xml"/>  
+	</target>
+	
+	<target name="deploy_2_websphere_liberty" depends="buildAll">
+		<delete file="/Users/fanjiahe/devenv/appserver/usr/servers/defaultServer/dropins/cds_web.war"></delete>
+		<delete file="/Users/fanjiahe/devenv/appserver/usr/servers/defaultServer/dropins/cds_service.war"></delete>
+		<copy overwrite="true" file="${dist.dir}/cds_web.war" todir="/Users/fanjiahe/devenv/appserver/usr/servers/defaultServer/dropins/"/>
+		<copy overwrite="true" file="${dist.dir}/cds_service.war" todir="/Users/fanjiahe/devenv/appserver/usr/servers/defaultServer/dropins/"/>
+	</target>
+</project>
