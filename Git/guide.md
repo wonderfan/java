@@ -2,3 +2,5 @@
 2. How to clone and pull request?
 3. Struts,Spring framework
 4. multiple projects's build and deployment
+5. ssh is better than http
+
