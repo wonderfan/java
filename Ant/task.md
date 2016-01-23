@@ -2,3 +2,5 @@
 
 - java task;
 - javac task;
+- jar task;
+- junit task;
