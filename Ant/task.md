@@ -4,3 +4,5 @@
 - javac task;
 - jar task;
 - junit task;
+- war task
+- [tasks](https://ant.apache.org/manual/Tasks/)
