@@ -6,3 +6,4 @@
 - junit task;
 - war task
 - [tasks](https://ant.apache.org/manual/Tasks/)
+- use ant to run java class and unit test
