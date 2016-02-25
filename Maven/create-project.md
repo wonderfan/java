@@ -14,3 +14,9 @@ mvn archetype:create
   -DartifactId=[your project's artifact id]
   -DarchetypeArtifactId=maven-archetype-quickstart
 ```
+
+make the project to eclipse
+
+```
+mvn  ecllipse:eclipse
+```
