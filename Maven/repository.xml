@@ -1,0 +1,15 @@
+	<repositories>
+		<repository>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<id>no-commons-logging</id>
+			<name>No-commons-logging Maven Repository</name>
+			<url>https://repository.jboss.org/nexus/content/repositories/thirdparty-releases</url>
+		</repository>
+       <repository>
+          <id>nexus</id>
+		  <name>Sonatype Public Repo</name>
+          <url>https://maven-us.nuxeo.org/nexus/content/groups/public</url>
+       </repository>		
+	</repositories>
