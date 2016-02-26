@@ -1,0 +1,25 @@
+       <dependency>
+            <groupId>cn.guoyukun.jdbc</groupId>
+            <artifactId>db2jcc</artifactId>
+            <version>1.4.2</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.guoyukun.jdbc</groupId>
+            <artifactId>db2jcc_license_cu</artifactId>
+            <version>1.4.2</version>
+        </dependency>
+        
+      <repositories>
+        <repository>
+            <id>project.local</id>
+            <name>project</name>
+            <url>file:${project.basedir}/repo</url>
+        </repository>
+		
+       <repository>
+          <id>nexus</id>
+		  <name>Sonatype Public Repo</name>
+          <url>https://maven-us.nuxeo.org/nexus/content/groups/public</url>
+       </repository>
+
+    </repositories>
