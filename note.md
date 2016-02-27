@@ -5,3 +5,8 @@
 3. instance, class and class loader
 4. closure
 5. annotation, generic type and reflection
+
+### Userful packages:
+
+1. apache ddlutils;
+2. spring container;
