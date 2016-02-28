@@ -5,6 +5,8 @@
 3. instance, class and class loader
 4. closure
 5. annotation, generic type and reflection
+6. enum type
+7. proxy
 
 ### Userful packages:
 
