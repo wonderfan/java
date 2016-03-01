@@ -12,3 +12,8 @@
 
 1. apache ddlutils;
 2. spring container;
+
+### JDBC PACKAGES:
+
+1. get the database metadata from connection;
+2. get the result set metedata from result set object;
