@@ -1,0 +1,47 @@
+import java.sql.SQLException;
+import java.util.Map;
+
+import org.apache.ddlutils.Platform;
+import org.apache.ddlutils.model.Table;
+import org.apache.ddlutils.platform.DatabaseMetaDataWrapper;
+import org.apache.ddlutils.platform.db2.Db2ModelReader;
+
+public class DecoratedDB2ModelReader extends Db2ModelReader {
+	private static final String[] KNOWN_SYSTEM_TABLES = { "STMG_DBSIZE_INFO", "HMON_ATM_INFO", "HMON_COLLECTION", "POLICY","DB2LOOK_INFO" };
+	public DecoratedDB2ModelReader(Platform platform){
+		super(platform);
+	}
+
+	protected Table readTable(DatabaseMetaDataWrapper metaData, Map values) throws SQLException
+	{
+       String tableName = (String)values.get("TABLE_NAME");
+
+       for (int idx = 0; idx < KNOWN_SYSTEM_TABLES.length; idx++)
+       {
+       	if (KNOWN_SYSTEM_TABLES[idx].equals(tableName))
+       	{
+       		return null;
+       	}
+       }
+
+       Table table = super.readTable(metaData, values);
+
+       if (table != null)
+       {
+           // Db2 does not return the auto-increment status via the database metadata
+           determineAutoIncrementFromResultSetMetaData(table, table.getColumns());
+       }
+       return table;
+	}
+}
+
+
+import org.apache.ddlutils.platform.db2.Db2Platform;
+
+public class DecoratedDB2Plarform extends Db2Platform {
+
+	public DecoratedDB2Plarform() {
+		super();
+		setModelReader(new DecoratedDB2ModelReader(this));
+	}
+}
