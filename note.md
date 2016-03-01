@@ -17,3 +17,7 @@
 
 1. get the database metadata from connection;
 2. get the result set metedata from result set object;
+
+### output different format:
+
+1. use rendersnake to render html report;
