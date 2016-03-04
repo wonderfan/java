@@ -8,3 +8,4 @@
 
 1. [maven](https://github.com/apache/maven)
 2. [maven-plugins](https://github.com/apache/maven-plugins)
+3. [plugins from code haus](https://github.com/mojohaus)
