@@ -110,7 +110,7 @@ public class MyTask {
 		attrsbu.put("cn", "jiahe");
 		attrsbu.put("sn", "jiage");
 		attrsbu.put("givenname", "jiahe");
-		String password = "aq1sw2de";
+		String password = "abcdef";
 		attrsbu.put("userPassword", password.getBytes());
 		attrsbu.put("languageCode", "zh_CN");
 		attrsbu.put("telephoneNumber", "1334444444");
