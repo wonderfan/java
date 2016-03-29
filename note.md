@@ -7,6 +7,7 @@
 5. annotation, generic type and reflection
 6. enum type
 7. proxy
+8. queue and topic
 
 ### Userful packages:
 
