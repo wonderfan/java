@@ -8,6 +8,8 @@
 6. enum type
 7. proxy
 8. queue and topic
+9. variable arguments
+
 
 ### Userful packages:
 
