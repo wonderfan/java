@@ -27,3 +27,11 @@ Enterprise and Android Application
 ` mvn tomcat:run`
 
 - jetty
+
+```
+<plugin>
+  <groupId>org.eclipse.jetty</groupId>
+  <artifactId>jetty-maven-plugin</artifactId>
+</plugin>
+```
+`mvn jetty:run`
