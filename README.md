@@ -8,3 +8,22 @@ Enterprise and Android Application
 - [Interactive realtime visulization](https://github.com/bokeh/bokeh)
 - [rundeck](https://github.com/rundeck/rundeck)
 
+
+### Maven Deployment
+
+- tomcat
+
+```
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.tomcat.maven</groupId>
+          <artifactId>tomcat6-maven-plugin</artifactId>
+          <version>2.2</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>  
+```
+` mvn tomcat:run`
+
+- jetty
