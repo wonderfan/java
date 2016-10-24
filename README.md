@@ -35,3 +35,7 @@ Enterprise and Android Application
 </plugin>
 ```
 `mvn jetty:run`
+
+### Design Pattern
+
+- [Software_design_pattern](https://en.wikipedia.org/wiki/Software_design_pattern)
