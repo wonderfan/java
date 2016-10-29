@@ -39,3 +39,4 @@ Enterprise and Android Application
 ### Design Pattern
 
 - [Software_design_pattern](https://en.wikipedia.org/wiki/Software_design_pattern)
+- good mechanism design
