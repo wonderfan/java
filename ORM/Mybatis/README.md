@@ -7,3 +7,6 @@
 ### The core classes
 
 - MapperMethod.java
+- SqlSession.java
+- MapperRegistry.java
+- Configuration.java
