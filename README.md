@@ -41,3 +41,7 @@ Enterprise and Android Application
 - [Software_design_pattern](https://en.wikipedia.org/wiki/Software_design_pattern)
 - good mechanism design
 - grpc
+
+### Spring and Mybatis
+
+- Angular resource url, request mapping and access control
