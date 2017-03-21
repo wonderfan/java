@@ -45,3 +45,4 @@ Enterprise and Android Application
 ### Spring and Mybatis
 
 - Angular resource url, request mapping and access control
+- java client and json mapper
