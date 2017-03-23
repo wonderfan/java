@@ -1,4 +1,4 @@
-### usage guide;
+### Usage Guide;
 
 - sql map;
 - sql map configuration;
