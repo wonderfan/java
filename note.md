@@ -35,4 +35,8 @@ sudo apt install openjdk-8-jdk
 sudo update-alternatives --config java
 sudo update-alternatives --config javac
 sudo apt remove openjdk-8-jdk
+
+sudo yum install java-1.8.0-openjdk
+sudo yum install java-1.8.0-openjdk-devel
+export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/jre
 ```
