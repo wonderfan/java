@@ -29,8 +29,8 @@
 ### Install Java
 
 ```bash
-sudo apt-get update
-sudo apt-get install openjdk-8-jdk-headless
+sudo apt update
+sudo apt install openjdk-8-jdk-headless
 sudo apt install openjdk-8-jdk
 sudo update-alternatives --config java
 sudo update-alternatives --config javac
